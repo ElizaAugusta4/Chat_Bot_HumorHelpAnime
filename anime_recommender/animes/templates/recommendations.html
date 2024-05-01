@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recomendações de Animes</title>
+</head>
+<body>
+    <h1>Recomendações de Animes</h1>
+    <ul>
+        {% for anime in animes %}
+            <li>{{ anime.title }} - Humor: {{ anime.humor }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
