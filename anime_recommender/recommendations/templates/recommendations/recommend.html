@@ -2,21 +2,43 @@
 <html>
 <head>
     <title>Anime Recommender</title>
+    <style>
+        body {
+            background-color: #add8e6; /* pastel blue */
+            font-family: Arial, sans-serif;
+        }
+        .chat-container {
+            background-color: #ffffff; /* white */
+            margin: auto;
+            width: 50%;
+            border: 3px solid #73AD21;
+            padding: 10px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input, button {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Qual gênero de anime você gosta?</h1>
-    <form method="post">
-        {% csrf_token %}
-        <input type="text" name="genre" required>
-        <button type="submit">Recomendar Animes</button>
-    </form>
-    {% if animes %}
-        <h2>Animes Recomendados:</h2>
-        <ul>
-            {% for anime in animes %}
-                <li>{{ anime.title }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    <div class="chat-container">
+        <h1>{{ message }}</h1>
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="genre" required>
+            <button type="submit">Recomendar Animes</button>
+        </form>
+        {% if animes %}
+            <h2>Animes Recomendados:</h2>
+            <ul>
+                {% for anime in animes %}
+                    <li>{{ anime.genre }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
 </body>
 </html>
