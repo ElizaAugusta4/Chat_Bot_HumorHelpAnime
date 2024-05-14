@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Anime Recommender</title>
+</head>
+<body>
+    <h1>Qual gênero de anime você gosta?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="genre" required>
+        <button type="submit">Recomendar Animes</button>
+    </form>
+    {% if animes %}
+        <h2>Animes Recomendados:</h2>
+        <ul>
+            {% for anime in animes %}
+                <li>{{ anime.title }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>

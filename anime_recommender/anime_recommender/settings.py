@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-+)#nn@t+aq%0@!5px&)h2=wz&)v&=@yr0(edbe7yyawq=z2mpx'
+SECRET_KEY = 'django-insecure-e5r)*4j*xpe5wnel(+zoffqpgi6n7il-qu2$@26&y8o0*p5byt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'animes',
+    'recommendations',
 ]
 
 MIDDLEWARE = [
@@ -55,7 +55,7 @@ ROOT_URLCONF = 'anime_recommender.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'recommendations/templates/recommendations'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

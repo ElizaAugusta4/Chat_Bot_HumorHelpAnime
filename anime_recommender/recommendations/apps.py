@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class AnimesConfig(AppConfig):
+class RecommendationsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'animes'
+    name = 'recommendations'
