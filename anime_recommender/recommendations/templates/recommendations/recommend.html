@@ -1,35 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>Anime Recommender</title>
+    <meta charset="UTF-8">
+    <title>ChatBot Recomendação de Animes</title>
     <style>
+        /* CSS styles from the second HTML file */
         body {
-            background-color: #add8e6; /* pastel blue */
-            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ffccff, #cc99ff);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 0;
+            overflow-y: scroll;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        .chat-container {
-            background-color: #ffffff; /* white */
-            margin: auto;
-            width: 50%;
-            border: 3px solid #73AD21;
-            padding: 10px;
-        }
-        form {
+        .content {
+            position: relative;
             display: flex;
             flex-direction: column;
-        }
-        input, button {
-            margin-bottom: 10px;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+            width: 40%;
+            height: 70%;
+            border-radius: 5%;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow: auto;
+            padding: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="chat-container">
-        <h1>{{ message }}</h1>
+    <div class="content">
+    <div class="snowflakes" aria-hidden="true">
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+        <div class="snowflake"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>{{ message }}</h1>
+        </div>
         <form method="post">
             {% csrf_token %}
-            <input type="text" name="genre" required>
-            <button type="submit">Recomendar Animes</button>
+            {% if stage == None %}
+                <input type="text" name="response" required>
+            {% elif stage == 'response_greeting' %}
+                <input type="text" name="response" required>
+            {% elif stage == 'ask_genre' %}
+                <input type="text" name="genre" required>
+            {% endif %}
+            <button type="submit">Enviar</button>
         </form>
         {% if animes %}
             <h2>Animes Recomendados:</h2>
@@ -39,6 +64,7 @@
                 {% endfor %}
             </ul>
         {% endif %}
+    </div>
     </div>
 </body>
 </html>
