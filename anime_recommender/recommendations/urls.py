@@ -2,5 +2,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('recommend/', views.recommend, name='recommend'),
+    path('', views.get_anime_by_genre, name='recommend'),
 ]

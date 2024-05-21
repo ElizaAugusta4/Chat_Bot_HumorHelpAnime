@@ -28,17 +28,35 @@
         <h1>{{ message }}</h1>
         <form method="post">
             {% csrf_token %}
-            <input type="text" name="genre" required>
-            <button type="submit">Recomendar Animes</button>
+
+            <label for="genre" >Gênero:</label>
+                <select id="genre" name="genre" required>
+                    <option value="">Selecione um gênero</option>
+                    <option value="action">Ação</option>
+                    <option value="adventure">Aventura</option>
+                    <option value="sci-fi">Ficção Científica</option>
+                    <option value="romance">Romance</option>
+                    <option value="drama">Drama</option>
+                    <option value="fantasy">Fantasia</option>
+                    <!-- Adicione mais opções de gênero aqui -->
+                </select>
+        <button type="submit">Recomendar Animes</button>
         </form>
         {% if animes %}
             <h2>Animes Recomendados:</h2>
             <ul>
                 {% for anime in animes %}
-                    <li>{{ anime.genre }}</li>
+                    <li>{% if anime.images_jpg %}
+                        <img src="{{ anime.images_jpg }}" alt="Imagem do anime">
+                    {% endif %}
+                        {{ anime.title }}
+                        Gêneros: {{ anime.genres }}
+                        Pontuação: {{ anime.score }}</li>
                 {% endfor %}
             </ul>
         {% endif %}
+
     </div>
+
 </body>
 </html>
