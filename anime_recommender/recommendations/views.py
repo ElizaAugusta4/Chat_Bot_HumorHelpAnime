@@ -58,10 +58,15 @@ def get_anime_by_genre(request):
             })
 
             # Create and save a UserPreference instance
-            user_preference = UserPreference()
-            user_preference.genre = genre
-            user_preference.title = title
-            user_preference.save()
+            user_preference = UserPreference.objects.filter(
+                genre=genre,
+                title=title
+            )
+
+            # If it doesn't exist, create it
+            if not user_preference.exists():
+                UserPreference.objects.create(genre=genre, title=title)
+
 
         return render(request, 'recommend.html', {'animes': anime_list})
     else:
