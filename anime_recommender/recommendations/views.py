@@ -1,33 +1,80 @@
-from django.shortcuts import render
-from django.views import View
-from .services import fetch_animes_by_genre
+from django.shortcuts import render, redirect
+from .models import UserPreference
+from .services import get_anime_by_genre
+import requests
 
 
-#Funcao para renderizar a tela inicial
-def anime_view(request):
-    return render(request, 'index.html')
+def recommend(request):
+    if request.method == 'POST':
+        genre = request.POST['genre']
+        animes = get_anime_by_genre(genre)
+        return render(request, 'recommend.html', {'animes': animes})
+    else:
+        return render(request, 'recommend.html')
 
-#classe e métodos para recomendação de animes
-class RecommendView(View):
+
+
+
+def get_anime_by_genre(request):
+    if request.method == 'POST':
+        genre = request.POST.get('genre')
+
+        url = 'https://graphql.anilist.co'
+        query = """
+        query ($genre: String) {
+          Page (page: 1, perPage: 5) {
+            media (genre: $genre, type: ANIME) {
+              title {
+                romaji
+                english
+                native
+              }
+              genres
+              coverImage {
+                large
+              }
+            }
+          }
+        }
+        """
+        variables = {
+            'genre': genre
+        }
+
+        response = requests.post(url, json={'query': query, 'variables': variables})
+        data = response.json()
+
+        anime_list = []
+
+        for anime in data['data']['Page']['media']:
+            title = anime["title"]["romaji"]
+            genres = anime["genres"]
+            image_url = anime["coverImage"]["large"]
+
+            anime_list.append({
+                "images_jpg": image_url,
+                "title": title,
+                "genres": genres,
+            })
+
+            # Create and save a UserPreference instance
+            user_preference = UserPreference()
+            user_preference.genre = genre
+            user_preference.title = title
+            user_preference.save()
+
+        return render(request, 'recommend.html', {'animes': anime_list})
+    else:
+        return render(request, 'recommend.html')
+class RecommendView():
     def get(self, request):
-        stage = request.session['stage'] = None
-        if stage is None or stage == 'greeting':
+        stage = request.session.get('stage', 'greeting')
+        if stage == 'greeting':
             message = 'Olá, tudo bem?'
-            request.session['stage'] = 'response_greeting'
-        elif stage == 'response_greeting':
+        elif stage == 'ask_genre':
             message = 'Qual gênero de animes você gosta?'
-            request.session['stage'] = 'ask_genre'
         else:
             message = 'Desculpe, não entendi.'
-        return render(request, 'recommend.html', {'message': message, 'stage': stage})
+        return render(request, 'recommend.html', {'message': message})
 
-    def post(self, request):
-        stage = request.session.get('stage', 'greeting')
-        if stage == 'response_greeting':
-            request.session['stage'] = 'ask_genre'
-            return render(request, 'recommend.html', {'message': 'Qual gênero de animes você gosta?', 'stage': 'ask_genre'})
-        elif stage == 'ask_genre':
-            genre = request.POST['genre']
-            animes = fetch_animes_by_genre(genre)
-            return render(request, 'recommend.html', {'animes': animes, 'stage': 'recommend'})
-        return render(request, 'recommend.html', {'message': 'Desculpe, não entendi.', 'stage': 'error'})
+

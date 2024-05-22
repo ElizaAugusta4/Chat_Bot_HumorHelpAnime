@@ -1,70 +1,60 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>ChatBot Recomendação de Animes</title>
+    <title>Anime Recommender</title>
     <style>
-        /* CSS styles from the second HTML file */
         body {
-            background: linear-gradient(135deg, #ffccff, #cc99ff);
-            font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            padding: 0;
-            overflow-y: scroll;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background-color: #add8e6; /* pastel blue */
+            font-family: Arial, sans-serif;
         }
-        .content {
-            position: relative;
+        .chat-container {
+            background-color: #ffffff; /* white */
+            margin: auto;
+            width: 50%;
+            border: 3px solid #73AD21;
+            padding: 10px;
+        }
+        form {
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: #ffffff;
-            width: 40%;
-            height: 70%;
-            border-radius: 5%;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            overflow: auto;
-            padding: 20px;
+        }
+        input, button {
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="content">
-    <div class="snowflakes" aria-hidden="true">
-        <div class="snowflake"></div>
-        <div class="snowflake"></div>
-        <div class="snowflake"></div>
-        <div class="snowflake"></div>
-    </div>
-
-    <div class="container">
-        <div class="header">
-            <h1>{{ message }}</h1>
-        </div>
+    <div class="chat-container">
+        <h1>{{ message }}</h1>
         <form method="post">
             {% csrf_token %}
-            {% if stage == None %}
-                <input type="text" name="response" required>
-            {% elif stage == 'response_greeting' %}
-                <input type="text" name="response" required>
-            {% elif stage == 'ask_genre' %}
-                <input type="text" name="genre" required>
-            {% endif %}
-            <button type="submit">Enviar</button>
+            <label for="genre">Gênero:</label>
+            <select id="genre" name="genre" required>
+                <option value="">Selecione um gênero</option>
+                <option value="action">Ação</option>
+                <option value="adventure">Aventura</option>
+                <option value="sci-fi">Ficção Científica</option>
+                <option value="romance">Romance</option>
+                <option value="drama">Drama</option>
+                <option value="fantasy">Fantasia</option>
+                <!-- Adicione mais opções de gênero aqui -->
+            </select>
+            <button type="submit">Recomendar Animes</button>
         </form>
         {% if animes %}
-            <h2>Animes Recomendados:</h2>
-            <ul>
-                {% for anime in animes %}
-                    <li>{{ anime.genre }}</li>
-                {% endfor %}
-            </ul>
+        <h2>Animes Recomendados:</h2>
+        <ul>
+            {% for anime in animes %}
+            <li>
+                {% if anime.images_jpg %}
+                <img src="{{ anime.images_jpg }}" alt="Imagem do anime">
+                {% endif %}
+                {{ anime.title }}
+                Gêneros: {{ anime.genres }}
+            </li>
+            {% endfor %}
+        </ul>
         {% endif %}
-    </div>
     </div>
 </body>
 </html>
