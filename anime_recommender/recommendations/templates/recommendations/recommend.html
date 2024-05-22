@@ -25,21 +25,11 @@
 </head>
 <body>
     <div class="chat-container">
-        <h1>{{ message }}</h1>
         <form method="post">
+            <h1>{{ message }}</h1>
             {% csrf_token %}
-            <label for="genre">Gênero:</label>
-            <select id="genre" name="genre" required>
-                <option value="">Selecione um gênero</option>
-                <option value="action">Ação</option>
-                <option value="adventure">Aventura</option>
-                <option value="sci-fi">Ficção Científica</option>
-                <option value="romance">Romance</option>
-                <option value="drama">Drama</option>
-                <option value="fantasy">Fantasia</option>
-                <!-- Adicione mais opções de gênero aqui -->
-            </select>
-            <button type="submit">Recomendar Animes</button>
+            <input type="text" id="genre" name="genre" required>
+            <button type="submit">Enviar</button>
         </form>
         {% if animes %}
         <h2>Animes Recomendados:</h2>
