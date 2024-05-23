@@ -50,12 +50,18 @@
 </head>
 <body>
     <div class="chat-container">
-        {% if message %}
+        <div class="header">
             <h1>{{ message }}</h1>
-        {% endif %}
+        </div>
         <form method="post">
             {% csrf_token %}
-            <input type="text" id="genre" name="genre" required>
+            {% if stage == None %}
+                <input type="text" name="response" required>
+            {% elif stage == 'response_greeting' %}
+                <input type="text" name="response" required>
+            {% elif stage == 'ask_genre' %}
+                <input type="text" name="genre" required>
+            {% endif %}
             <button type="submit">Enviar</button>
         </form>
         <h2>Top Melhores Animes:</h2>

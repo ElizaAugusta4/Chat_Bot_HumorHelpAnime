@@ -105,26 +105,16 @@ def recommend_top(request):
    else:
         return render(request, 'recommend.html')
       
-class RecommendView(View):
-    def get(self, request):
-        stage = request.session.get('stage', None)
-        if stage is None or stage == 'greeting':
-            message = 'Olá, tudo bem?'
-            request.session['stage'] = 'response_greeting'
-        elif stage == 'response_greeting':
-            message = 'Qual gênero de animes você gosta?'
-            request.session['stage'] = 'ask_genre'
-        else:
-            message = 'Desculpe, não entendi.'
-        return render(request, 'recommend.html', {'message': message, 'stage': stage})
 
-    def post(self, request):
-      stage = request.session.get('stage', 'greeting')
-      if stage == 'response_greeting':
-        request.session['stage'] = 'ask_genre'
-        return render(request, 'recommend.html', {'message': 'Qual gênero de animes você gosta?', 'stage': 'ask_genre'})
-      elif stage == 'ask_genre':
-        genre = request.POST['genre']
-        animes = recommend_genre(genre)
-        return render(request, 'recommend.html', {'animes': animes, 'stage': 'recommend'})
-      return render(request, 'recommend.html', {'message': 'Desculpe, não entendi.', 'stage': 'error'})
+def RecommendView(request): 
+    stage = request.session.get('stage', None)
+    if stage is None:
+      stage = request.session['stage'] = 'response_greeting'
+      message = 'Olá, tudo bem?'
+    elif stage == 'response_greeting':
+      message = 'Qual gênero de animes você gosta?'
+      stage = request.session['stage'] = 'ask_genre'
+    else:
+      message = 'Lista de Animes:'
+      stage = request.session['stage'] = None
+    return render(request, 'recommend.html', {'message': message, 'stage': stage})
