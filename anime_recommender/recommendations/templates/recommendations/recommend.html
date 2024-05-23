@@ -21,24 +21,57 @@
         input, button {
             margin-bottom: 10px;
         }
+        .anime-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-gap: 10px;
+        }
+
+        .anime-grid ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .anime-grid li {
+            margin-bottom: 20px;
+        }
+
+        .anime-grid img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        .anime-grid div {
+            padding: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="chat-container">
-        <h1>{{ message }}</h1>
+        {% if message %}
+            <h1>{{ message }}</h1>
+        {% endif %}
         <form method="post">
             {% csrf_token %}
-            <input type="text" name="genre" required>
-            <button type="submit">Recomendar Animes</button>
+            <input type="text" id="genre" name="genre" required>
+            <button type="submit">Enviar</button>
         </form>
-        {% if animes %}
-            <h2>Animes Recomendados:</h2>
-            <ul>
+        <h2>Top Melhores Animes:</h2>
+        <div class="anime-grid">
+            {% if animes %}
                 {% for anime in animes %}
-                    <li>{{ anime.genre }}</li>
+                    <div class="anime-card">
+                        {% if anime.images_jpg %}
+                            <img src="{{ anime.images_jpg }}" alt="Imagem do anime">
+                        {% endif %}
+                        {{ anime.title }}
+                        Gêneros: {{ anime.genres }}
+                    </div>
                 {% endfor %}
-            </ul>
-        {% endif %}
-    </div>
+            {% endif %}
+        </div>
+    </div> 
 </body>
 </html>
