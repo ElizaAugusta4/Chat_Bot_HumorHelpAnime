@@ -8,7 +8,6 @@ def get_anime_by_genre(genre):
         data = response.json()
         filtered_data = [item for item in data['data'] if item['genre']['name'] == 'genre']
 
-
         anime_list = []
         for anime in data['data']:
             genres_list = anime['genres']
