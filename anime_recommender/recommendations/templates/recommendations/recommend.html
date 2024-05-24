@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Anime Recommender</title>
@@ -10,7 +10,7 @@
         .chat-container {
             background-color: #ffffff; /* white */
             margin: auto;
-            width: 50%;
+            width: 80%;
             border: 3px solid #73AD21;
             padding: 10px;
         }
@@ -21,6 +21,7 @@
         input, button {
             margin-bottom: 10px;
         }
+
         .anime-grid {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
@@ -50,99 +51,58 @@
 </head>
 <body>
     <div class="chat-container">
-        <div class="header">
-            <h1>{{ message }}</h1>
-        </div>
-        <form method="post">
-            {% csrf_token %}
-            {% if stage == None %}
-                <input type="text" name="response" required>
-            {% elif stage == 'response_greeting' %}
-                <input type="text" name="response" required>
-            {% elif stage == 'ask_genre' %}
-                <input type="text" name="genre" required>
-            {% endif %}
-            <button type="submit">Enviar</button>
-        </form>
-        <h2>Top Melhores Animes:</h2>
-        <div class="anime-grid">
-            {% if animes %}
-                {% for anime in animes %}
-                    <div class="anime-card">
-                        {% if anime.images_jpg %}
-                            <img src="{{ anime.images_jpg }}" alt="Imagem do anime">
-                        {% endif %}
-                        {{ anime.title }}
-                        Gêneros: {{ anime.genres }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </div> 
-</body>
-</html> -->
+    <h2>Animes TOP:</h2>
+    <div class="anime-grid">
+        {% if animes %}
+            {% for anime in animes %}
+                <div class="anime-card">
+                    {% if anime.images_jpg %}
+                        <img src="{{ anime.images_jpg }}" alt="Imagem do anime">
+                    {% endif %}
+                    {{ anime.title }}
+                    Gêneros: {{ anime.genres }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Anime Recommender</title>
-    <style>
-        body {
-            background-color: #add8e6; /* pastel blue */
-            font-family: Arial, sans-serif;
-        }
-        .chat-container {
-            background-color: #ffffff; /* white */
-            margin: auto;
-            width: 50%;
-            border: 3px solid #73AD21;
-            padding: 10px;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-        input, button {
-            margin-bottom: 10px;
-        }
-        .anime-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            grid-gap: 10px;
-        }
-        .anime-grid div {
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-        .anime-grid img {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-        }
-    </style>
-</head>
-<body>
     <div class="chat-container">
         <h1>{{ message }}</h1>
         <form method="post">
             {% csrf_token %}
-            <input type="text" id="genre" name="genre">
-            <button type="submit">Enviar</button>
+
+            <label for="genre" >Gênero:</label>
+                <select id="genre" name="genre" required>
+                    <option value="">Selecione um gênero</option>
+                    <option value="action">Ação</option>
+                    <option value="adventure">Aventura</option>
+                    <option value="sci-fi">Ficção Científica</option>
+                    <option value="romance">Romance</option>
+                    <option value="drama">Drama</option>
+                    <option value="fantasy">Fantasia</option>
+                    <!-- Adicione mais opções de gênero aqui -->
+                </select>
+        <button type="submit">Recomendar Animes</button>
         </form>
-        <h2>Top Melhores Animes:</h2>
-        <div class="anime-grid">
-            {% if animes %}
-                {% for anime in animes %}
-                    <div class="anime-card">
-                        {% if anime.images_jpg %}
-                            <img src="{{ anime.images_jpg }}" alt="Imagem do anime">
-                        {% endif %}
-                        <h3>{{ anime.title }}</h3>
-                        <p>Gêneros: {{ anime.genres|join:", " }}</p>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </div> 
+        <div class="chat-container">
+            <h2>Animes Recomendados:</h2>
+            <div class="anime-grid">
+                {% if anime %}
+                    {% for anime in anime %}
+                        <div class="anime-card">
+                            {% if anime.images_jpg %}
+                                <img src="{{ anime.images_jpg }}" alt="Imagem do anime">
+                            {% endif %}
+                            {{ anime.title }}
+                            Gêneros: {{ anime.genres }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+    </div>
+
+    </div>
+
 </body>
 </html>
