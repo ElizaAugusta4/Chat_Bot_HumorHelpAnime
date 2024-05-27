@@ -1,0 +1,158 @@
+/* Estilos do site */
+
+/* Cores principais */
+:root {
+  --primary-color: #F7D2C4; /* Cor primária: uma cor pastel quente */
+  --secondary-color: #8BC34A; /* Cor secundária: uma cor verde como a de um anime */
+  --accent-color: #FFC107; /* Cor de destaque: uma cor amarela viva */
+  --background-color: #F5F5F5; /* Cor de fundo: uma cor branca suave */
+  --text-color: #333; /* Cor de texto: uma cor preta escura */
+}
+
+/* Estilos globais */
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+p {
+  margin-bottom: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: var(--accent-color);
+}
+
+a:hover {
+  color: var(--secondary-color);
+}
+
+/* Estilos para a navbar */
+nav {
+  background-color: var(--primary-color);
+  padding: 10px;
+  text-align: center;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  display: inline-block;
+  margin-right: 10px; /* Adiciona margem à direita para separar os elementos */
+  border: 1px solid var(--accent-color); /* Adiciona uma borda */
+  padding: 5px 10px; /* Adiciona preenchimento para tornar os elementos da navegação mais visíveis */
+}
+
+nav a {
+  color: var(--text-color);
+  text-decoration: none; /* Remove o sublinhado padrão dos links */
+}
+
+nav a:hover {
+  color: var(--accent-color);
+}
+
+/* Estilos para a lista de animes */
+.animes-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.animes-list li {
+  padding-bottom: 20px;
+}
+
+.animes-list img {
+  width: 100px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.animes-list h2 {
+  font-weight: bold;
+}
+
+.animes-list p {
+  font-size: small;
+}
+
+.chat-container {
+        display: flex; /* Adiciona flexbox para alinhar os elementos na mesma linha */
+        flex-direction: column; /* Define a direção da flexbox como coluna */
+    }
+
+.anime-list {
+    display: flex; /* Adiciona flexbox para alinhar os elementos na mesma linha */
+    flex-wrap: wrap; /* Permite que os elementos quebrem para a próxima linha */
+}
+
+.anime-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between; /* Distribui os elementos igualmente ao longo do eixo principal com espaçamento entre eles */
+        margin: 0 -10px; /* Adiciona margens negativas para compensar as margens internas dos elementos filhos */
+    }
+
+    .anime-card {
+        flex: 0 0 calc(20% - 20px); /* Define a largura de cada card de anime */
+        margin: 10px; /* Margem entre os cards */
+        padding: 10px;
+        box-sizing: border-box; /* Garante que a largura inclua a borda e o preenchimento */
+        background-color: #f9f9f9;
+    }
+
+/* Form*/
+
+form {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Estilos para o rótulo */
+    label {
+        font-weight: bold;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    /* Estilos para o seletor de gênero */
+    select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    /* Estilos para o botão de submit */
+    button[type="submit"] {
+        background-color: #ff6f61;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button[type="submit"]:hover {
+        background-color: #d83c2d;
+    }

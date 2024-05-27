@@ -1,0 +1,52 @@
+<!-- header.html -->
+{% load static %}
+<style>
+    .chat-container {
+        display: flex; /* Adiciona flexbox para alinhar os elementos na mesma linha */
+        flex-direction: column; /* Define a direção da flexbox como coluna */
+    }
+
+    .anime-list {
+        display: flex; /* Adiciona flexbox para alinhar os elementos na mesma linha */
+        flex-wrap: wrap; /* Permite que os elementos quebrem para a próxima linha */
+    }
+
+    .anime-card {
+        flex: 0 0 calc(20% - 20px); /* Define a largura de cada card de anime */
+        margin: 10px; /* Margem entre os cards */
+        text-align: center; /* Centraliza o conteúdo */
+        background-color: #f9f9f9; /* Cor de fundo */
+        padding: 10px; /* Preenchimento interno */
+        box-sizing: border-box; /* Garante que a largura inclua a borda e o preenchimento */
+    }
+</style>
+
+<nav>
+    <ul>
+        <li><a href="{% url 'recommendations' %}">Buscar por Gênero</a></li>
+        <li><a href="{% url 'index' %}">HOME</a></li>
+        <li><a href="#">Lista de Recomendações</a></li>
+        <!-- Outros links ou elementos da navbar aqui -->
+    </ul>
+</nav>
+<h1>Top 5 Animes</h1>
+<ul>
+    <div class="chat-container">
+        <div class="anime-list">
+            {% if animes_top %}
+                {% for anime in animes_top %}
+                    <div class="anime-card">
+                        <a href="#">
+                            {% if anime.images_jpg %}
+                                <img src="{{ anime.images_jpg }}" alt="Imagem do anime">
+                            {% endif %}
+                            <h3>{{ anime.title }}</h3>
+                            <p>Gêneros: {{ anime.genres }}</p>
+                            <p>Popularidade: {{ anime.popularity }}</p>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</ul>

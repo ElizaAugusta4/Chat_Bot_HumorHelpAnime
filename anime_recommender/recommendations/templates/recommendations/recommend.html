@@ -51,21 +51,21 @@
 </head>
 <body>
     <div class="chat-container">
-    <h2>Animes TOP:</h2>
-    <div class="anime-grid">
-        {% if animes %}
-            {% for anime in animes %}
-                <div class="anime-card">
-                    {% if anime.images_jpg %}
-                        <img src="{{ anime.images_jpg }}" alt="Imagem do anime">
-                    {% endif %}
-                    {{ anime.title }}
-                    Gêneros: {{ anime.genres }}
-                </div>
-            {% endfor %}
-        {% endif %}
+        <h2>Animes TOP:</h2>
+        <div class="anime-grid">
+            {% if animes %}
+                {% for anime in animes %}
+                    <div class="anime-card">
+                        {% if anime.images_jpg %}
+                            <img src="{{ anime.images_jpg }}" alt="Imagem do anime">
+                        {% endif %}
+                        {{ anime.title }}
+                        Gêneros: {{ anime.genres }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
     </div>
-</div>
 
     <div class="chat-container">
         <h1>{{ message }}</h1>

@@ -1,0 +1,58 @@
+{% extends 'static/html/base.html'%}
+{% load static %}
+
+
+{% block content%}
+
+
+
+    <div class="chat-container">
+        <h1>{{ message }}</h1>
+        <form method="post">
+            {% csrf_token %}
+
+            <label for="genre" >Gênero:</label>
+                <select id="genre" name="genre" required>
+                    <option value="">Selecione um gênero</option>
+                    <option value="action">Ação</option>
+                    <option value="adventure">Aventura</option>
+                    <option value="sci-fi">Ficção Científica</option>
+                    <option value="romance">Romance</option>
+                    <option value="drama">Drama</option>
+                    <option value="fantasy">Fantasia</option>
+                    <!-- Adicione mais opções de gênero aqui -->
+                </select>
+        <button type="submit">Recomendar Animes</button>
+        </form></html>
+
+        <h1>Animes que você pode gostar!</h1>
+        <div class="anime-grid">
+            {% if animes %}
+                {% for anime in animes %}
+                    <a href="#" class="anime-card"> <!-- Link para a página de detalhes do anime -->
+                        {% if anime.images_jpg %}
+                            <img src="{{ anime.images_jpg }}" alt="Imagem do anime">
+                        {% endif %}
+                        <h3>{{ anime.title }}</h3>
+                        <p>Gêneros: {{ anime.genres }}</p>
+                    </a>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="anime-grid">
+            {% if animes_random %}
+                {% for anime in animes_random %}
+                    <a href="#" class="anime-card"> <!-- Link para a página de detalhes do anime -->
+                        {% if anime.images_jpg %}
+                            <img src="{{ anime.images_jpg }}" alt="Imagem do anime">
+                        {% endif %}
+                        <h3>{{ anime.title }}</h3>
+                        <p>Gêneros: {{ anime.genres }}</p>
+                    </a>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+
+{% endblock%}

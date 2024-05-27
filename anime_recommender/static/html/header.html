@@ -1,0 +1,24 @@
+<!-- header.html -->
+{% load static %}
+<nav>
+    <ul>
+        <li><a href="{% url 'recommendations' %}">Buscar por Gênero</a></li>
+        <!-- Outros links ou elementos da navbar aqui -->
+    </ul>
+</nav>
+<h1>Top 5 Animes</h1>
+<ul>
+    <div class="anime-grid">
+            {% if animes_top %}
+                {% for anime in animes_top %}
+                    <div class="anime-card">
+                        {% if anime.images_jpg %}
+                            <img src="{{ anime.images_jpg }}" alt="Imagem do anime">
+                        {% endif %}
+                        {{ anime.title }}
+                        Gêneros: {{ anime.genres }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+</ul>

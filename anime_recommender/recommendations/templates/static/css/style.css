@@ -1,0 +1,98 @@
+/* Estilos do site */
+
+/* Cores principais */
+:root {
+  --primary-color: #F7D2C4; /* Cor primária: uma cor pastel quente */
+  --secondary-color: #8BC34A; /* Cor secundária: uma cor verde como a de um anime */
+  --accent-color: #FFC107; /* Cor de destaque: uma cor amarela viva */
+  --background-color: #F5F5F5; /* Cor de fundo: uma cor branca suave */
+  --text-color: #333; /* Cor de texto: uma cor preta escura */
+}
+
+/* Estilos globais */
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+p {
+  margin-bottom: 20px;
+}
+
+a {
+  text-decoration: none;
+  color: var(--accent-color);
+}
+
+a:hover {
+  color: var(--secondary-color);
+}
+
+/* Estilos para a navbar */
+nav {
+  background-color: var(--primary-color);
+  padding: 10px;
+  text-align: center;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  display: inline-block;
+}
+
+nav a {
+  color: var(--text-color);
+}
+
+nav a:hover {
+  color: var(--accent-color);
+}
+
+.anime-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Define as colunas da grade, cada uma com tamanho mínimo de 200px e se ajustando automaticamente ao tamanho da tela */
+    grid-gap: 20px; /* Espaçamento entre os elementos */
+}
+
+.anime-card {
+    background-color: #f9f9f9;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: center; /* Centraliza o conteúdo */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza verticalmente */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.anime-card img {
+    max-width: 100%;
+    height: auto;
+}
+
+@media screen and (max-width: 768px) {
+    .anime-card {
+        flex-basis: calc(33.33% - 20px); /* Em telas menores, exibe até 3 animes por linha */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .anime-card {
+        flex-basis: calc(50% - 20px); /* Em telas ainda menores, exibe até 2 animes por linha */
+    }
+}
